@@ -1,5 +1,8 @@
-from flask import Flask, render_template, url_for,redirect
+from flask import Flask, render_template, url_for, redirect
+from forms import LoginForm, RegistrationFrom
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '2fd56da00602826cb7800e16af1d0ee8'
 
 
 posts = [
@@ -17,6 +20,8 @@ posts = [
     }
 ]
 
+
+
 @app.route("/")
 @app.route("/home")
 def index():
@@ -26,6 +31,18 @@ def index():
 @app.route("/about")
 def about():
     return render_template('about.html', title="About")
+
+
+@app.route("/login")
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
+
+
+@app.route("/register")
+def register():
+    form = RegistrationFrom()
+    return render_template('register.html', title='Register', form=form)
 
 
 
